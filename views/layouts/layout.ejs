@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container" style="height: 100vh;">
+
+    <header style="height: 10%;">
+        <%- include('../partials/header', { menus: [ {menu: 'Home' , class: 'nav-link' , link: '/' },
+            {menu: 'About' , class: 'nav-link' , link: '/about' } ] }); %>
+    </header>
+
+    <main style="height: 85%;">
+        <%- body %>
+    </main>
+
+    <footer style="height: 5%">
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <!-- scripts -->
+    <%- script %>
+    
+    <%- include('../partials/scripts'); %> <!-- scripts partial for bootstrap styling -->
+    <script>
+        var pathname = window.location.pathname;
+        var navLink = document.querySelectorAll('.nav-link');
+       
+        if (navLink && pathname === '/') {
+            navLink[0].classList.add('active');
+            navLink[1].classList.remove('active');
+        } else if (navLink && pathname === '/about') {
+            navLink[1].classList.add('active');
+            navLink[0].classList.remove('active');
+        };
+    </script>
+    
+</body>
+
+</html>

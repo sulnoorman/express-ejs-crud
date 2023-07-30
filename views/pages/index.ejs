@@ -1,0 +1,12 @@
+<div class="p-3 bg-secondary-subtle h-100">
+    <h1>Learning EJS</h1>
+    <p>Welcome to templating using EJS</p>
+    <p>What tools and engine i use for this website are:</p>
+    <ol>
+        <% datas && datas.map((data)=> { %>
+            <li><%= data %></li>
+          <% }) %>
+    </ol>
+</div>
+<%- contentFor('script') %>
+<script></script>

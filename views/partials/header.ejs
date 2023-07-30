@@ -1,0 +1,10 @@
+<nav class="p-3 navbar navbar-expand-lg navbar-light bg-light h-100">
+  <a class="navbar-brand" href="/">EJS Is Fun</a>
+  <ul class="navbar-nav mr-auto">
+    <% menus.forEach(function(menus) {%>
+      <li class="nav-item">
+        <a class="<%= menus.class %>" href="<%= menus.link %>"><%= menus.menu %></a>
+      </li>
+      <%})%>
+  </ul>
+</nav>

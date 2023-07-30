@@ -1,0 +1,104 @@
+<div class="p-3 bg-secondary-subtle h-100">
+    <h1>Learning EJS</h1>
+    <p>Welcome to templating using EJS</p>
+    <p>This is the about page. In this page i'm gonna learning how to get data from mongodb database using express.js
+        and
+        looping it to the table below. Let's check it out!</p>
+    <p>I have a database called 'tokopaedi' and then i will get all datas in the 'customers' collection . Try to <a
+            href="/add-data">add data</a> to post new customers.</p>
+    <!-- table section -->
+    <div class="container">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Depan</th>
+                    <th scope="col">Nama Belakang</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Saldo</th>
+                    <th scope="col">Status Pelanggan</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% datas && datas.forEach((data, i)=> { %>
+                    <tr class="text-center">
+                        <th scope="row">
+                            <%= i + 1 %>
+                        </th>
+                        <td>
+                            <%= data.namaDepan %>
+                        </td>
+                        <td>
+                            <%= data.namaBelakang %>
+                        </td>
+                        <td>
+                            <%= data.email %>
+                        </td>
+                        <td>
+                            <%= data.saldo %>
+                        </td>
+                        <td>
+                            <%= data.aktif ? 'Aktif' : 'Tidak Aktif' %>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col p-0">
+                                    <% if (data.aktif) { %>
+                                        <i onclick="navigateToEditPage('<%= data._id %>')" class="bi bi-pencil-fill"
+                                            style="cursor: pointer;"></i>
+                                        <% } else { %>
+                                            <i class="bi bi-pencil-fill" style="color: lightgrey;"></i>
+                                        <% } %>
+                                </div>
+                                <div class="col">
+                                    <i onclick="setId('<%= data._id %>')" class="bi bi-trash-fill"
+                                        style="cursor: pointer; color: darkred;" data-bs-toggle="modal"
+                                        data-bs-target="#modalDelete"></i>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- modal component -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah anda yakin ingin menghapus data ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                    <button onclick="deleteData()" type="button" class="btn" data-bs-dismiss="modal"
+                        style="background-color: darkred; color:#fff">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- contentFor('script') %>
+    <script>
+        let id;
+
+        const setId = (idData) => {
+            console.log(idData);
+            id = idData
+        }
+
+        const deleteData = () => {
+            console.log('delete data with id', id)
+            window.location.href = `/delete/${id}`;
+        }
+
+        const navigateToEditPage = (idData) => {
+            window.location.href = `/edit-data/${idData}`;
+        }
+    </script>
