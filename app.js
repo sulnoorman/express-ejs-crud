@@ -119,8 +119,8 @@ connect().then(() => {
         var objData = {
             'namaDepan': req.body.namaDepan,
             'namaBelakang': req.body.namaBelakang,
-            'email': req.body.email,
-            'saldo': req.body.saldo,
+            'email': req.body.email || '-',
+            'saldo': req.body.saldo || '-',
             'aktif': req.body.status === 'undefined' ? true : false
         }
         try {
